@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> new document </title>
+    <meta charset="utf-8">
+</head>
+<style>
+    .box{
+        border:1px solid #ddd;
+        width:100px;
+        height:100px;
+        float: left;
+        margin-right: 5px;
+    }
+</style>
+<body>
+<button>添加一个BOX</button>
+<input type="button" value="添加体格input按钮"/>
+<hr/>
+<div class="box">DIV1</div>
+<div class="box">DIV2</div>
+<div class="box">DIV3</div>
+</select>
+<script src="js/jquery-1.11.3.js"></script>
+<script>
+    $(document).ready(function(){
+       $("body").delegate("div.box","click",function(e){
+           var $target= $(e.target);
+           alert($target.html());
+       });
+        $("button").on("click",function(){
+            $("body").append(
+                    $('<div class="box">$(stt)</div>')
+            );
+        })
+    });
+    $("input").on("click",function(){
+        $("body").append(
+                $('<input type="button" class="box" value="new button"/>')
+        )
+    })
+
+
+
+
+
+
+
+    $("div.affix>ul").on("click","[data-toggle='item]",function(){
+        var $target = $(e.target);
+        if(!$target.parent().hasClass("active")){
+            $target.parent().siblings("active").removeClass("active");
+            $target.parent().addClass("active");
+            $($(this).attr("href")).addClass("active").siblings(".active").hasClass("active").removeClass("active");
+        }
+    })
+</script>
+</body>
+</html>

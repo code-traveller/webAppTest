@@ -1,0 +1,131 @@
+事件：
+
+显示或隐藏   .slideToggle();
+
+移除所有事件处理程序.die();
+
+阻止默认行为  e.preventDefault();
+
+阻止冒泡行为  e.stopPropagation();
+
+e.target       target 属性规定哪个 DOM 元素触发了该事件。
+
+e.type   触发了哪种类型的事件
+
+mouseover() 当鼠标指针位于元素上方时时（鼠标悬停时）
+mouseout()   当鼠标从元素上移开时
+一个事件：hover()   其实就是mouseover鼠标悬停 和 mouseout鼠标离开 的合体，所以简写为hover()
+
+bind() 方法为被选元素添加一个或多个事件处理程序，并规定事件发生时运行的函数。
+$("button").bind("click",function(){
+            $("a").css("color","blue");
+            $("b").css("color","red");
+        });
+
+
+$(document).ready(function) 将函数绑定到文档的就绪事件（当DOM树加载完成，JS执行完毕就会触发） 
+    $(window).load(function() {
+        //必须等到html,css,js,img全部加载完成才触发。
+    });
+
+    $(document).ready(function(){
+          //ready在onload前加载，表示文档结构已经加载完成（不包含图片等非文字媒体文件）
+    });
+
+
+
+$(selector).dblclick(function) 触发或将函数绑定到被选元素的双击事件 
+
+$(selector).focus(function) 触发或将函数绑定到被选元素的获得焦点事件
+$(selector).blur(function)                  失去焦点 (blur) 时 
+
+$(".field").change(function(){     在某个域被使用或改变时
+  $(this).css("background-color","#FFFFCC");
+});
+ 
+当元素的值发生改变时，会发生 change 事件。该事件仅适用于文本域（text field），以及 textarea 和 select 元素。
+
+$(selector).one(event,data,function) 方法为被选元素附加一个或多个事件处理程序，并规定当事件发生时运行的函数。
+当使用 one() 方法时，每个元素只能运行一次事件处理器函数。
+
+select() 方法 input 元素中的文本被选择时，会发生 select 事件。
+
+submit() 方法  当提交表单时，会发生 submit 事件。
+
+toggle() 方法用于绑定两个或多个事件处理器函数，以响应被选元素的轮流的 click 事件。
+该方法也可用于切换被选元素的 hide() 与 show() 方法。
+
+$(...).trigger("事件名") 方法触发被选元素的指定事件类型。
+triggerHandler() 跟上面方法类似，方法触发被选元素的指定事件类型。但不会执行浏览器默认动作，也不会产生事件冒泡。
+
+unbind() 方法移除被选元素的事件处理程序。
+
+unload() 当用户离开页面时，会发生 unload 事件。
+
+jquery离开页面弹出提示代码：
+//绑定beforeunload事件$(window).bind('beforeunload',function(){return '您输入的内容尚未保存，确定离开此页面吗？';});
+//解除绑定，一般放在提交触发事件中$(window).unbind('beforeunload');
+
+
+
+
+
+表单 
+
+表单元素过滤: 
+ 什么是: 利用表单元素的标签名和type属性值选择表单中的元素
+  何时: 只要查找表单中的表单元素时
+  如何: 包括: 
+ :input选择所有表单元素:input select textarea button
+ 每种type都对应一个选择器: 
+   :text :password :radio :checkbox :submit :reset
+   :file :button :hidden :image
+
+    <form>
+        用户名: <input disabled/> <br/>
+        密码: <input type="password" disabled/> <br/>
+
+        <input type="checkbox"/>同意 <br/>
+        <input type="button" disabled value="提交注册信息"/>
+    </form>
+
+	 $("form> :checkbox").click(function(){
+//       $("form> :input").attr("disabled",false); 或者=>
+        $("form> :input").removeAttr("disabled");
+   })
+
+
+
+
+
+
+AJAX
+		
+	兼容性：
+	 var request;
+    if(window.XMLHttpRequest){
+        request = new XMLHttpRequest(); //IE7+,Firefox,Chrome,Opera，Safari
+    }else{
+        request=new ActiveXObject("Microsoft.XMLHTTP");  //IE6,IE5
+    }
+
+http请求 7 个步骤
+1、建立TCP连接
+2、Web浏览器向Web服务器发送请求命令
+3、Web浏览器发送请求头信息
+4、web服务器响应
+5、web服务器发送响应头部信息
+6、web服务器向浏览器发送数据
+7、web服务器关闭TCP连接
+
+http请求一般由四个部分组成
+1、http请求的方法或动作，比如GET还是POST
+2、正在请求的URL，总得知道请求地址是什么吧
+3、请求头，包含一些客户端环境信息，身份验证信息等
+4、请求体，也就是请求正文，请求正文中可以包含客户提交的查询字符串信息，表单信息等等
+
+GET：一般用于信息获取
+	使用URL传递参数
+	对所发生信息的数量也有限制，一般在2000个字符
+POST：一般用于修改服务器上的资源
+	对所发送信息的数量无限制
